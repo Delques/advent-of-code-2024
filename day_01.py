@@ -5,29 +5,16 @@ DAY_NUMBER = 1
 filepath_input = get_filepath_input(DAY_NUMBER)
 
 with open(filepath_input, "r") as file:
-    content = file.readlines()
+    content_num = list(map(int, file.read().split()))
 
-list_1 = []
-list_2 = []
-for line in content:
-    line_numbers = list(map(int, line.split()))
-    list_1.append(line_numbers[0])
-    list_2.append(line_numbers[1])
+list_1, list_2 = sorted(content_num[::2]), sorted(content_num[1::2])
 
-list_1.sort()
-list_2.sort()
+score_difference = sum(abs(n1 - n2) for n1, n2 in zip(list_1, list_2))
 
-sum_differences = 0
-for n1, n2 in zip(list_1, list_2):
-    sum_differences += abs(n1 - n2)
+print(score_difference)  # Part 1
 
-print(sum_differences)  # Part 1
+score_similarity = sum(
+    n * list_1.count(n) * list_2.count(n) for n in set(list_1)
+)
 
-number_similarity_score = dict()
-for n in list_1:
-    if n in number_similarity_score:
-        continue
-    number_similarity_score[n] = n * list_1.count(n) * list_2.count(n)
-total_similarity_score = sum(list(number_similarity_score.values()))
-
-print(total_similarity_score)  # Part 2
+print(score_similarity)  # Part 2

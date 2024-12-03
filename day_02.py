@@ -1,3 +1,4 @@
+from typing import Generator
 from utils.get_filepath_input import get_filepath_input
 
 DAY_NUMBER = 2
@@ -24,16 +25,17 @@ def is_safe_report(
     Args:
         report (list[int]):
             List of levels in the report.
-        min_dif (int):
+        min_dif (int = 1):
             Minimum difference between adjacent levels in a safe
             report.
-        max_dif (int):
+        max_dif (int = 3):
             Maximum difference between adjacent levels in a safe
             report.
 
     Returns:
         True if the report is safe, False otherwise.
     """
+
     ascending = None
     for i in range(1, len(report)):
         dif = report[i] - report[i - 1]
@@ -48,12 +50,12 @@ def is_safe_report(
     return True
 
 
-safe_reports = sum([is_safe_report(report) for report in matrix])
+safe_reports = sum(is_safe_report(report) for report in matrix)
 
 print(safe_reports)  # Part 1
 
 
-def generate_subsets(report: list[int]) -> list[list[int]]:
+def generate_subsets(report: list[int]) -> Generator[list[int], None, None]:
     """
     Given a report, generate a list of that report's subsets which do
     not contain exactly one of its elements.
@@ -61,18 +63,17 @@ def generate_subsets(report: list[int]) -> list[list[int]]:
     Args:
         report (list[int]): List of levels in a report.
 
-    Returns:
+    Yields:
         A list of subsets of the report, each lacking one of its
         elements in comparison.
     """
-    return [report[:n] + report[n + 1 :] for n in range(len(report))]
+
+    yield from (report[:n] + report[n + 1 :] for n in range(len(report)))
 
 
 safe_reports = sum(
-    [
-        any([is_safe_report(subset) for subset in generate_subsets(report)])
-        for report in matrix
-    ]
+    any(is_safe_report(subset) for subset in generate_subsets(report))
+    for report in matrix
 )
 
 print(safe_reports)  # Part 2
