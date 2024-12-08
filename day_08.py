@@ -23,19 +23,15 @@ def add_antinodes(
     in_line: bool = False,
 ) -> None:
 
-    slope = tuple(antenna_1[index] - antenna_2[index] for index in (0, 1))
+    slope = tuple(antenna_2[index] - antenna_1[index] for index in (0, 1))
 
     if not in_line:
-        if (
-            0 <= (antinode_i := antenna_1[0] + slope[0]) <= m
-            and 0 <= (antinode_j := antenna_1[1] + slope[1]) <= n
-        ):
-            antinodes.add((antinode_i, antinode_j))
-        if (
-            0 <= (antinode_i := antenna_2[0] - slope[0]) <= m
-            and 0 <= (antinode_j := antenna_2[1] - slope[1]) <= n
-        ):
-            antinodes.add((antinode_i, antinode_j))
+        for offset in (-1, 2):
+            if (
+                0 <= (antinode_i := antenna_1[0] + offset * slope[0]) <= m
+                and 0 <= (antinode_j := antenna_1[1] + offset * slope[1]) <= n
+            ):
+                antinodes.add((antinode_i, antinode_j))
 
     else:
         for direction in (-1, 1):
