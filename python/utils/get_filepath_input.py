@@ -1,5 +1,7 @@
 import os
 
+FOLDER_INPUT = "input"
+
 
 def get_filepath_input(day_number: str | int) -> str:
     """
@@ -15,4 +17,4 @@ def get_filepath_input(day_number: str | int) -> str:
         data for the given day.
     """
 
-    return os.path.join(os.getcwd(), f"day_{day_number:0>2}.txt")
+    return os.path.join(os.getcwd(), FOLDER_INPUT, f"day_{day_number:0>2}.txt")
