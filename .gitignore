@@ -1,7 +1,7 @@
 # Directory containing .txt input files for
 # Advent of Code's challenges, as the event's
 # creator asked that they do not be replicated.
-input_aoc/
+input/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
