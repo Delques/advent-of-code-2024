@@ -1,9 +1,8 @@
-from utils.get_filepath_input import get_filepath_input
-
-DAY_NUMBER = 8
+from utils_aoc import get_filepath_input
 
 antennas: dict[str, list[tuple[int, int]]] = dict()
-with open(get_filepath_input(DAY_NUMBER), "r") as file:
+
+with open(get_filepath_input(), "r") as file:
     for i, line in enumerate(file.readlines()):
         for j, char in enumerate(line.strip()):
             if char == ".":

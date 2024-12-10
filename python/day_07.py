@@ -1,14 +1,11 @@
 from typing import Callable
 from operator import add, mul
-from utils.get_filepath_input import get_filepath_input
-
-DAY_NUMBER = 7
-
-filepath_input = get_filepath_input(DAY_NUMBER)
+from utils_aoc import get_filepath_input
 
 results: list[int] = []
 terms: list[list[int]] = []
-with open(filepath_input, "r") as file:
+
+with open(get_filepath_input(), "r") as file:
     for line in file.readlines():
         results.append(int(line.split(":")[0]))
         terms.append(list(map(int, line.split(":")[1].split())))

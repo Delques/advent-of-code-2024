@@ -1,15 +1,11 @@
 from itertools import cycle
-from typing import Iterator, Literal, cast
-from utils.get_filepath_input import get_filepath_input
+from typing import Iterator, Literal
+from utils_aoc import get_filepath_input
 
-DAY_NUMBER = 6
-
-filepath_input = get_filepath_input(DAY_NUMBER)
-
-obstructions: list[tuple[int, int]] = []
-
+obstructions: set[tuple[int, int]] = set()
 matrix: list[str] = []
-with open(filepath_input, "r") as file:
+
+with open(get_filepath_input(), "r") as file:
     for i, line in enumerate(file.readlines()):
         matrix.append(line.strip())
         for j, char in enumerate(matrix[i]):
@@ -17,13 +13,10 @@ with open(filepath_input, "r") as file:
                 case ".":
                     continue
                 case "#":
-                    obstructions.append((i, j))
+                    obstructions.add((i, j))
                 case "^":
                     i_0, j_0 = i, j
-        else:
-            n = j
-    else:
-        m = i
+    m, n = i, j
 
 
 def traverse(
@@ -31,19 +24,13 @@ def traverse(
     j: int,
     m: int,
     n: int,
-    directions: Iterator[tuple[tuple[int, int]]],
-    obstructions: list[tuple[int, int]],
+    directions: Iterator[tuple[int, int]],
+    obstructions: set[tuple[int, int]],
     check_loops: bool = False,
 ) -> set[tuple[int, int]] | Literal[-1]:
 
     direction = next(directions)
-    traversed = set()
-    if not check_loops:
-        traversed = cast(set[tuple[int, int]], traversed)
-    else:
-        traversed = cast(
-            set[tuple[int, int, tuple[tuple[int, int]]]], traversed
-        )
+    traversed: set[tuple[int, int]] = set()
 
     while True:
 
@@ -73,11 +60,11 @@ traversed = traverse(i_0, j_0, m, n, directions, obstructions)
 
 print(len(traversed))  # Part 1
 
-# Really unoptimized, but it works
+# A bit unoptimized, but it's working
 possible_obstructions = 0
-for position in traversed:
+for k, position in enumerate(traversed):
 
-    obstructions_new = obstructions[:] + [(position[0], position[1])]
+    obstructions_new = obstructions | {tuple((position[0], position[1]))}
     directions = cycle(((-1, 0), (0, 1), (1, 0), (0, -1)))
 
     if traverse(i_0, j_0, m, n, directions, obstructions_new, True) == -1:

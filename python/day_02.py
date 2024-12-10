@@ -1,16 +1,8 @@
 from typing import Generator
-from utils.get_filepath_input import get_filepath_input
+from utils_aoc import get_filepath_input
 
-DAY_NUMBER = 2
-
-filepath_input = get_filepath_input(DAY_NUMBER)
-
-with open(filepath_input, "r") as file:
-    content = file.readlines()
-
-matrix = list(
-    map(lambda line: [int(number) for number in str.split(line)], content)
-)
+with open(get_filepath_input(), "r") as file:
+    matrix = [[int(x) for x in line.split()] for line in file.readlines()]
 
 
 def is_safe_report(

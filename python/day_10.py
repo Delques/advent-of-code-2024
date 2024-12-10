@@ -1,12 +1,10 @@
-from utils.get_filepath_input import get_filepath_input
-
-DAY_NUMBER = 10
+from utils_aoc import get_filepath_input
 
 HEAD, TAIL = 0, 9
 matrix: list[list[int]] = []
 heads: list[tuple[int, int]] = []
 
-with open(get_filepath_input(DAY_NUMBER)) as file:
+with open(get_filepath_input(), "r") as file:
     for i, line in enumerate(file.readlines()):
         matrix.append([])
         for j, value in enumerate(map(int, line.strip())):

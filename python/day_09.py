@@ -1,6 +1,4 @@
-from utils.get_filepath_input import get_filepath_input
-
-DAY_NUMBER = 9
+from utils_aoc import get_filepath_input
 
 files: dict[int, int] = dict()
 files_positions: dict[int, int] = dict()
@@ -8,7 +6,8 @@ free_spaces: dict[int, int] = dict()
 compacted: list[int | str] = []
 c = 0
 files_positions_count = 0
-with open(get_filepath_input(DAY_NUMBER)) as file:
+
+with open(get_filepath_input(), "r") as file:
     for i, value in enumerate(map(int, file.read().strip())):
         if i % 2 == 0:
             files_positions[c] = len(compacted)

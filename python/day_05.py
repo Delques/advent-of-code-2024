@@ -1,12 +1,8 @@
 import re
 from typing import cast
-from utils.get_filepath_input import get_filepath_input
+from utils_aoc import get_filepath_input
 
-DAY_NUMBER = 5
-
-filepath_input = get_filepath_input(DAY_NUMBER)
-
-with open(filepath_input, "r") as file:
+with open(get_filepath_input(), "r") as file:
     content = file.read()
 
 

@@ -2,13 +2,9 @@
 # clearer, or just bite the bullet and solve the puzzle by sweeping
 # over the matrix' rows, columns and diagonals.
 
-from utils.get_filepath_input import get_filepath_input
+from utils_aoc import get_filepath_input
 
-DAY_NUMBER = 4
-
-filepath_input = get_filepath_input(DAY_NUMBER)
-
-with open(filepath_input, "r") as file:
+with open(get_filepath_input(), "r") as file:
     lines = file.readlines()
 
 WORD = "XMAS"

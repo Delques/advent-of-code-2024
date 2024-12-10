@@ -1,12 +1,7 @@
 import re
+from utils_aoc import get_filepath_input
 
-from utils.get_filepath_input import get_filepath_input
-
-DAY_NUMBER = 3
-
-filepath_input = get_filepath_input(DAY_NUMBER)
-
-with open(filepath_input, "r") as file:
+with open(get_filepath_input(), "r") as file:
     content = file.read()
 
 
@@ -30,10 +25,7 @@ def get_sum_of_products(
 
     if use_conditionals:
         memory_code = re.sub(
-            r"don't().*",
-            "",
-            re.sub(r"don't().*?(?=do())", "", memory_code, flags=re.S),
-            flags=re.S,
+            r"don't().*?(?=do()|\Z)", "", memory_code, flags=re.S
         )
 
     return sum(
