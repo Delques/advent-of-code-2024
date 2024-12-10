@@ -1,1 +1,1 @@
-from utils_aoc.filepath_input import get_filepath_input
+from .filepath_input import get_filepath_input
